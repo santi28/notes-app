@@ -9,7 +9,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <StackNavigator />
-      <StatusBar style="auto" />
+      <StatusBar style="inverted" />
     </NavigationContainer>
     // <View style={styles.container}>
     //   {/* <Text>Open up App.tsx to start working on your app!</Text> */}
