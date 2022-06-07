@@ -9,5 +9,16 @@ const palette = {
 export const theme = {
   colors: {
     ...palette
+  },
+  fonts: {
+    typos: {
+      bold: 'Outfit_700Bold'
+    },
+    sizes: {
+      small: 12,
+      regular: 14,
+      medium: 16,
+      large: 20
+    }
   }
 }
