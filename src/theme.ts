@@ -12,6 +12,7 @@ export const theme = {
   },
   fonts: {
     typos: {
+      regular: 'Outfit_400Regular',
       bold: 'Outfit_700Bold'
     },
     sizes: {

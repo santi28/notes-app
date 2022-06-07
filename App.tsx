@@ -11,10 +11,15 @@ import { Text } from 'react-native'
 import StatusBarHeight from './src/components/StatusBarHeight'
 
 // import SplashScreen from 'expo-splash-screen'
-import { useFonts, Outfit_700Bold } from '@expo-google-fonts/outfit'
+import {
+  useFonts,
+  Outfit_700Bold,
+  Outfit_400Regular
+} from '@expo-google-fonts/outfit'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
+    Outfit_400Regular,
     Outfit_700Bold
   })
 
