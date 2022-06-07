@@ -17,7 +17,7 @@ const Header = () => {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: theme.colors.primary,
-    paddingHorizontal: 30,
+    paddingHorizontal: 25,
     paddingVertical: 25,
     flexDirection: 'row',
     justifyContent: 'space-between'

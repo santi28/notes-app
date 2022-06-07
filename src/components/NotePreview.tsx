@@ -10,7 +10,7 @@ const NotePreview = ({ key, title, children }) => {
     <View key={key} style={[styles.noteBody]}>
       <View style={[styles.noteHeader]}>
         <Text style={[styles.noteTitle]}>{title}</Text>
-        <Trash width={24} height={24} color={theme.colors.red} />
+        <Trash width={20} height={20} color={theme.colors.red} />
       </View>
       <Text style={[styles.noteContent]}>{children}</Text>
       <Text style={[styles.noteTimestamp]} key={`${key}-timestamp`}>
@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
   noteBody: {
     padding: 15,
     backgroundColor: theme.colors.secondary,
-    borderRadius: 20
+    borderRadius: 20,
+    marginBottom: 14
   },
   noteHeader: {
     flexDirection: 'row',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import NotePreview from '../components/NotePreview'
 import { theme } from '../theme'
 
@@ -11,8 +11,64 @@ const Home = () => {
         alignContent: 'center',
         backgroundColor: theme.colors.primary
       }}>
-      <Text>Notes List</Text>
-      <NotePreview title="Hello">Hola Mundo, como estan todos!!</NotePreview>
+      <ScrollView>
+        <View
+          key="notes-wrapper"
+          style={{
+            marginHorizontal: 25,
+            flexDirection: 'row'
+          }}>
+          <View
+            key="left-notes-wrapper"
+            style={{
+              alignSelf: 'stretch',
+              flex: 1,
+              marginRight: 7
+            }}>
+            <NotePreview title="Note 1">
+              Sit elitr nonumy euismod ipsum ut est takimata
+            </NotePreview>
+            <NotePreview title="Hello World">
+              Sit elitr nonumy euismod ipsum ut est takimata vel sit liber amet
+              invidunt est et eleifend et takimata vel. Elitr sadipscing et
+              augue sed volutpat. Eirmod sea et vero kasd dolore dignissim at
+              feugiat ut est sed justo lorem. Facilisis magna est
+            </NotePreview>
+            <NotePreview title="Hello World">
+              Sed at veniam invidunt sea et duis lorem ipsum nibh feugiat. Sed
+              dolore volutpat dolore accumsan et accusam et lorem dolor volutpat
+              sed et euismod sed accusam et quod. Diam dolore iusto consetetur
+              aliquyam clita rebum invidunt amet dolore lorem
+            </NotePreview>
+          </View>
+          <View
+            key="right-notes-wrapper"
+            style={{
+              alignSelf: 'stretch',
+              flex: 1,
+              marginLeft: 7
+            }}>
+            <NotePreview title="Hello World">
+              Sit elitr nonumy euismod ipsum ut est takimata vel sit liber amet
+              invidunt est et eleifend et takimata vel. Elitr sadipscing et
+              augue sed volutpat. Eirmod sea et vero kasd dolore dignissim at
+              feugiat ut est sed justo lorem. Facilisis magna est
+            </NotePreview>
+            <NotePreview title="Hello World">
+              Sed at veniam invidunt sea et duis lorem ipsum nibh feugiat. Sed
+              dolore volutpat dolore accumsan et accusam et lorem dolor volutpat
+              sed et euismod sed accusam et quod. Diam dolore iusto consetetur
+              aliquyam clita rebum invidunt amet dolore lorem
+            </NotePreview>
+            <NotePreview title="Hello World">
+              Sed at veniam invidunt sea et duis lorem ipsum nibh feugiat. Sed
+              dolore volutpat dolore accumsan et accusam et lorem dolor volutpat
+              sed et euismod sed accusam et quod. Diam dolore iusto consetetur
+              aliquyam clita rebum invidunt amet dolore lorem
+            </NotePreview>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   )
 }
