@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Trash } from 'react-native-unicons'
 
 import PropTypes from 'prop-types'
@@ -7,16 +7,18 @@ import { theme } from '../theme'
 
 const NotePreview = ({ key, title, children }) => {
   return (
-    <View key={key} style={[styles.noteBody]}>
-      <View style={[styles.noteHeader]}>
-        <Text style={[styles.noteTitle]}>{title}</Text>
-        <Trash width={20} height={20} color={theme.colors.red} />
+    <TouchableOpacity>
+      <View key={key} style={[styles.noteBody]}>
+        <View style={[styles.noteHeader]}>
+          <Text style={[styles.noteTitle]}>{title}</Text>
+          <Trash width={20} height={20} color={theme.colors.red} />
+        </View>
+        <Text style={[styles.noteContent]}>{children}</Text>
+        <Text style={[styles.noteTimestamp]} key={`${key}-timestamp`}>
+          16 Jun 2020
+        </Text>
       </View>
-      <Text style={[styles.noteContent]}>{children}</Text>
-      <Text style={[styles.noteTimestamp]} key={`${key}-timestamp`}>
-        16 Jun 2020
-      </Text>
-    </View>
+    </TouchableOpacity>
   )
 }
 
