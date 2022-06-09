@@ -20,22 +20,29 @@ const noteHeader = ({ navigation }: INoteHeaderProps) => {
   if (!navigation) return null
 
   return (
-    <View style={[styles.header]}>
-      <View>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <ArrowLeft width={24} height={24} color="white" />
-        </TouchableOpacity>
-        <Text style={[styles.headerTitle]}>Native Notes</Text>
-      </View>
+    <View style={[styles.header, { backgroundColor: theme.colors.secondary }]}>
+      <TouchableOpacity
+        style={{ flexDirection: 'row', alignItems: 'center', opacity: 0.6 }}
+        onPress={() => navigation.goBack()}>
+        <ArrowLeft width={32} height={32} color="white" />
+        <Text style={[styles.noteHeaderTitle]}>Back</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={{
           backgroundColor: theme.colors.accent,
-          padding: 10,
-          borderRadius: 10
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          borderRadius: 20
         }}>
-        <Text>Done</Text>
+        <Text
+          style={{
+            color: theme.colors.white,
+            fontFamily: theme.fonts.typos.bold,
+            fontSize: theme.fonts.sizes.medium
+          }}>
+          Done
+        </Text>
       </TouchableOpacity>
-      {/* <Search width={20} height={20} color="white" /> */}
     </View>
   )
 }
@@ -50,12 +57,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 25,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   headerTitle: {
     fontFamily: theme.fonts.typos.bold,
     color: theme.colors.white,
     fontSize: theme.fonts.sizes.large
+  },
+  noteHeaderTitle: {
+    fontFamily: theme.fonts.typos.bold,
+    color: theme.colors.white,
+    fontSize: theme.fonts.sizes.medium,
+    marginLeft: 10
   }
 })
 
