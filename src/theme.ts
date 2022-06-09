@@ -1,7 +1,7 @@
 const palette = {
   primary: '#141319',
   secondary: '#22202C',
-  accent: '#FFD600',
+  accent: '#5135DD',
   red: '#F34034',
   white: '#E7E7E7'
 }

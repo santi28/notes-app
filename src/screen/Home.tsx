@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, ScrollView } from 'react-native'
+import AddNewNoteButton from '../components/AddNewNoteButton'
 import NotePreview from '../components/NotePreview'
 import { theme } from '../theme'
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <View
       style={{
@@ -69,6 +70,7 @@ const Home = () => {
           </View>
         </View>
       </ScrollView>
+      <AddNewNoteButton navigation={navigation} />
     </View>
   )
 }

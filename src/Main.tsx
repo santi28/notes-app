@@ -14,9 +14,16 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ header: () => Header() }}
+        options={{ header: () => Header({ isNote: false }) }}
       />
-      <Stack.Screen name="Note" component={Note} />
+      <Stack.Screen
+        name="Note"
+        component={Note}
+        options={({ navigation }) => ({
+          animation: 'fade_from_bottom',
+          header: () => Header({ isNote: true, navigation })
+        })}
+      />
     </Stack.Navigator>
   )
 }
