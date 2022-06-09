@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 // Screens
 import Home from './screen/Home'
 import Note from './screen/Note'
-import Header from './components/Header'
+import Header from './components/Header/Header'
 
 const Stack = createNativeStackNavigator()
 

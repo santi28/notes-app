@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Search, ArrowLeft } from 'react-native-unicons'
 
 import { IHeaderProps, INoteHeaderProps } from './IHeader'
-import { theme } from '../theme'
+import { theme } from '../../theme'
 
 const homeHeader = () => {
   return (
@@ -16,6 +16,9 @@ const homeHeader = () => {
 }
 
 const noteHeader = ({ navigation }: INoteHeaderProps) => {
+  // Check if navigation object is undefined
+  if (!navigation) return null
+
   return (
     <View style={[styles.header]}>
       <View>
