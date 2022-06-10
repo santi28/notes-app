@@ -9,6 +9,7 @@ import getParsedDate from '../functions/getParsedDate'
 
 // Theme data
 import { theme } from '../theme'
+import { createNewNote } from '../functions/storeDataManipulator'
 
 const Note = () => {
   const navigation = useNavigation()
@@ -16,24 +17,43 @@ const Note = () => {
   // #region States
   const [noteTitle, setNoteTitle] = React.useState('')
   const [noteDate, setNoteDate] = React.useState(getParsedDate())
-  // const [noteContent, setNoteContent] = React.useState('')
+  const [noteContent, setNoteContent] = React.useState('')
 
   // Gestiona el cambio de texto en el input, se ejecuta cada vez que se escribe en el titulo
   const handleTitleChange = (text: string) => {
     setNoteTitle(text)
   }
 
-  const handleSaveNote = () => {
+  const handleContentChange = (text: string) => {
+    setNoteContent(text)
+  }
+
+  const handleSaveNote = async () => {
     // En caso del titulo estar vacio, no se guarda la nota y regresa al titulo
     if (noteTitle === '') return navigation.goBack()
-    console.log({ date: noteDate.timestamp, noteTitle })
+
+    try {
+      await createNewNote({
+        title: noteTitle,
+        createdAt: noteDate.timestamp,
+        content: noteContent
+      })
+
+      navigation.goBack()
+    } catch (error) {
+      console.log(error)
+    }
+
+    // console.log({ date: noteDate.timestamp, noteTitle })
   }
 
   // Actualiza la fecha de la nota cada segundo
   React.useEffect(() => {
-    setInterval(() => {
+    const counterInterval = setInterval(() => {
       setNoteDate(getParsedDate())
     }, 1000)
+
+    return () => clearInterval(counterInterval)
   }, [])
 
   return (
@@ -44,9 +64,11 @@ const Note = () => {
         backgroundColor: theme.colors.primary
       }}>
       <NoteHeader saveNoteEvent={handleSaveNote} />
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={{ flex: 1, flexGrow: 1, height: '100%' }}>
         <View
           style={{
+            flex: 1,
             margin: 25
           }}>
           <TextInput
@@ -69,13 +91,20 @@ const Note = () => {
             }}>
             {noteDate.formated}
           </Text>
-          <Text
+          <TextInput
             style={{
-              color: `${theme.colors.white}`,
-              fontFamily: theme.fonts.typos.regular
-            }}>
-            {noteTitle}
-          </Text>
+              flex: 1,
+              textAlignVertical: 'top',
+              fontFamily: theme.fonts.typos.regular,
+              fontSize: theme.fonts.sizes.medium,
+              color: theme.colors.white,
+              marginTop: 15
+            }}
+            onChangeText={handleContentChange}
+            multiline={true}
+            placeholderTextColor={`${theme.colors.white}99`}
+            placeholder="Contenido de la nota"
+          />
         </View>
       </ScrollView>
     </View>
