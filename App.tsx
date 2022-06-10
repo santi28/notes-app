@@ -18,10 +18,7 @@ import {
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    // eslint-disable-next-line camelcase
-
     Outfit_400Regular,
-    // eslint-disable-next-line camelcase
     Outfit_700Bold
   })
 

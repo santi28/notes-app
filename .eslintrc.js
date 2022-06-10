@@ -14,5 +14,10 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['react', '@typescript-eslint'],
-  rules: {}
+  rules: {
+    camelcase: [
+      'error',
+      { properties: 'never', ignoreDestructuring: true, ignoreImports: true }
+    ]
+  }
 }
