@@ -5,7 +5,7 @@ import { Text, TextInput, View, ScrollView } from 'react-native'
 
 // Project routed components
 import { NoteHeader } from '../components/Headers'
-import getParsedDate from '../functions/getParsedDate'
+import { getParsedDate } from '../functions/getParsedDate'
 
 // Theme data
 import { theme } from '../theme'

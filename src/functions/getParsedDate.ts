@@ -42,4 +42,13 @@ const getParsedDate = (isWithHour: boolean = true): IGetParsedDate => {
   return { timestamp, formated }
 }
 
-export default getParsedDate
+const parseDate = (timestamp: number): string => {
+  // Convierte el timestamp a una fecha manipulable por dayjs
+  const date = dayjs.unix(timestamp)
+  // Obitene el mes actual
+  const month: string = months[date.month()]
+
+  return date.format(`DD [de] ${month}`)
+}
+
+export { getParsedDate, parseDate }

@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import uuid from 'react-native-uuid'
 
-interface INote {
+interface INoteParam {
   // Note metadata
-  id?: number[] | string
+  id?: string
   createdAt: number
   updatedAt?: number
 
@@ -12,8 +12,19 @@ interface INote {
   content: string
 }
 
-const createNewNote = async (noteProps: INote) => {
-  noteProps.id = noteProps.id ?? uuid.v4()
+interface INote {
+  // Note metadata
+  id: string
+  createdAt: number
+  updatedAt: number
+
+  // Note data
+  title: string
+  content: string
+}
+
+const createNewNote = async (noteProps: INoteParam) => {
+  noteProps.id = noteProps.id?.toString() ?? uuid.v4().toString()
   noteProps.updatedAt = noteProps.updatedAt ?? noteProps.createdAt
 
   if (typeof noteProps.id !== 'string')
@@ -28,4 +39,21 @@ const createNewNote = async (noteProps: INote) => {
   }
 }
 
-export { createNewNote }
+const getAllNotes = async (): Promise<INote[]> => {
+  try {
+    const notes: INote[] = []
+    const keys = await AsyncStorage.getAllKeys()
+    for (const key of keys) {
+      const jsonNote = await AsyncStorage.getItem(key)
+      if (jsonNote === undefined || !jsonNote) continue
+      const note: INote = await JSON.parse(jsonNote)
+      notes.push(note)
+    }
+
+    return Promise.resolve(notes)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+export { createNewNote, getAllNotes, INote }
