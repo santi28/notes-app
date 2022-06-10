@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import { FilePlusAlt } from 'react-native-unicons'
+import { theme } from '../theme'
 
 const AddNewNoteButton = ({ navigation }) => {
   const navegateToAddNote = () => {
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
-    backgroundColor: 'blue',
+    backgroundColor: theme.colors.accent,
     padding: 20,
     borderRadius: 40
   }

@@ -3,10 +3,10 @@ import React from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Search, ArrowLeft } from 'react-native-unicons'
 
-import { IHeaderProps, INoteHeaderProps } from './IHeader'
-import { theme } from '../../theme'
+import { theme } from '../theme'
+import { useNavigation } from '@react-navigation/native'
 
-const homeHeader = () => {
+const Header = () => {
   return (
     <View style={[styles.header]}>
       <Text style={[styles.headerTitle]}>Native Notes</Text>
@@ -15,9 +15,10 @@ const homeHeader = () => {
   )
 }
 
-const noteHeader = ({ navigation }: INoteHeaderProps) => {
+const NoteHeader = ({ saveNoteEvent }) => {
   // Check if navigation object is undefined
-  if (!navigation) return null
+
+  const navigation = useNavigation()
 
   return (
     <View style={[styles.header, { backgroundColor: theme.colors.secondary }]}>
@@ -33,7 +34,8 @@ const noteHeader = ({ navigation }: INoteHeaderProps) => {
           paddingVertical: 10,
           paddingHorizontal: 20,
           borderRadius: 20
-        }}>
+        }}
+        onPress={() => saveNoteEvent()}>
         <Text
           style={{
             color: theme.colors.white,
@@ -45,10 +47,6 @@ const noteHeader = ({ navigation }: INoteHeaderProps) => {
       </TouchableOpacity>
     </View>
   )
-}
-
-const Header = ({ isNote, navigation }: IHeaderProps) => {
-  return isNote ? noteHeader({ navigation }) : homeHeader()
 }
 
 const styles = StyleSheet.create({
@@ -73,4 +71,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Header
+export { Header, NoteHeader }

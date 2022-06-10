@@ -1,25 +1,27 @@
-/* eslint-disable camelcase */
-
+// React & React Native / expo imports
 import React from 'react'
-
-import { StatusBar } from 'expo-status-bar'
-import StackNavigator from './src/Main'
-import { NavigationContainer } from '@react-navigation/native'
-
 import { Text } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { StatusBar } from 'expo-status-bar'
 
+// Proyecto routed components
 import StatusBarHeight from './src/components/StatusBarHeight'
+import StackNavigator from './src/Main'
 
-// import SplashScreen from 'expo-splash-screen'
+// #region Importing fonts
 import {
   useFonts,
   Outfit_700Bold,
   Outfit_400Regular
 } from '@expo-google-fonts/outfit'
+// #endregion
 
 export default function App() {
   const [fontsLoaded] = useFonts({
+    // eslint-disable-next-line camelcase
+
     Outfit_400Regular,
+    // eslint-disable-next-line camelcase
     Outfit_700Bold
   })
 
@@ -33,9 +35,5 @@ export default function App() {
       <StackNavigator />
       <StatusBar style="inverted" />
     </NavigationContainer>
-    // <View style={styles.container}>
-    //   {/* <Text>Open up App.tsx to start working on your app!</Text> */}
-
-    // </View>
   )
 }

@@ -1,31 +1,35 @@
-import dayjs from 'dayjs'
-import 'dayjs/locale/es'
-import localeData from 'dayjs/plugin/localeData'
-import * as Localization from 'expo-localization'
-
+// React & React Native / expo imports
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { Text, TextInput, View, ScrollView } from 'react-native'
+
+// Project routed components
+import { NoteHeader } from '../components/Headers'
+import getParsedDate from '../functions/getParsedDate'
+
+// Theme data
 import { theme } from '../theme'
 
-dayjs.extend(localeData)
-
-const capitalize = (word: string) => {
-  const lower = word.toLowerCase()
-  return word.charAt(0).toUpperCase() + lower.slice(1)
-}
-
-const getParsedDate = () => {
-  const date = dayjs()
-  dayjs.locale('es')
-  const monthName = capitalize(date.format('MMMM'))
-  // eslint-disable-next-line prettier/prettier
-  return date.format(`DD [de] [${monthName}], HH:mm:ss`)
-}
-
 const Note = () => {
-  const [noteDate, setNoteDate] = React.useState(getParsedDate())
+  const navigation = useNavigation()
 
-  // For each second that passes, update the noteDate
+  // #region States
+  const [noteTitle, setNoteTitle] = React.useState('')
+  const [noteDate, setNoteDate] = React.useState(getParsedDate())
+  // const [noteContent, setNoteContent] = React.useState('')
+
+  // Gestiona el cambio de texto en el input, se ejecuta cada vez que se escribe en el titulo
+  const handleTitleChange = (text: string) => {
+    setNoteTitle(text)
+  }
+
+  const handleSaveNote = () => {
+    // En caso del titulo estar vacio, no se guarda la nota y regresa al titulo
+    if (noteTitle === '') return navigation.goBack()
+    console.log({ date: noteDate.timestamp, noteTitle })
+  }
+
+  // Actualiza la fecha de la nota cada segundo
   React.useEffect(() => {
     setInterval(() => {
       setNoteDate(getParsedDate())
@@ -33,37 +37,48 @@ const Note = () => {
   }, [])
 
   return (
-    <ScrollView
+    <View
       style={{
         flex: 1,
         alignContent: 'center',
         backgroundColor: theme.colors.primary
       }}>
-      <View
-        style={{
-          margin: 25
-        }}>
-        <TextInput
+      <NoteHeader saveNoteEvent={handleSaveNote} />
+      <ScrollView>
+        <View
           style={{
-            fontFamily: theme.fonts.typos.bold,
-            fontSize: theme.fonts.sizes.large + 15,
-            color: theme.colors.white,
-            marginBottom: 15
-          }}
-          multiline={true}
-          placeholderTextColor={`${theme.colors.white}99`}
-          placeholder="Titulo de la nota"
-        />
-        <Text
-          style={{
-            color: `${theme.colors.white}4D`,
-            fontFamily: theme.fonts.typos.regular,
-            fontSize: theme.fonts.sizes.medium
+            margin: 25
           }}>
-          {noteDate}
-        </Text>
-      </View>
-    </ScrollView>
+          <TextInput
+            style={{
+              fontFamily: theme.fonts.typos.bold,
+              fontSize: theme.fonts.sizes.large + 15,
+              color: theme.colors.white,
+              marginBottom: 15
+            }}
+            multiline={true}
+            placeholderTextColor={`${theme.colors.white}99`}
+            onChangeText={handleTitleChange}
+            placeholder="Titulo de la nota"
+          />
+          <Text
+            style={{
+              color: `${theme.colors.white}4D`,
+              fontFamily: theme.fonts.typos.regular,
+              fontSize: theme.fonts.sizes.medium
+            }}>
+            {noteDate.formated}
+          </Text>
+          <Text
+            style={{
+              color: `${theme.colors.white}`,
+              fontFamily: theme.fonts.typos.regular
+            }}>
+            {noteTitle}
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
   )
 }
 

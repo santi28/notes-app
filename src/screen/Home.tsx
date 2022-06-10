@@ -1,10 +1,14 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, ScrollView } from 'react-native'
 import AddNewNoteButton from '../components/AddNewNoteButton'
+import { Header } from '../components/Headers'
 import NotePreview from '../components/NotePreview'
 import { theme } from '../theme'
 
-const Home = ({ navigation }) => {
+const Home = () => {
+  const navigation = useNavigation()
+
   return (
     <View
       style={{
@@ -12,6 +16,7 @@ const Home = ({ navigation }) => {
         alignContent: 'center',
         backgroundColor: theme.colors.primary
       }}>
+      <Header />
       <ScrollView>
         <View
           key="notes-wrapper"

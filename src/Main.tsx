@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 // Screens
 import Home from './screen/Home'
 import Note from './screen/Note'
-import Header from './components/Header/Header'
 
 const Stack = createNativeStackNavigator()
 
@@ -14,14 +13,14 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ header: () => Header({ isNote: false }) }}
+        options={{ header: () => null }}
       />
       <Stack.Screen
         name="Note"
         component={Note}
         options={({ navigation }) => ({
           animation: 'fade_from_bottom',
-          header: () => Header({ isNote: true, navigation })
+          header: () => null
         })}
       />
     </Stack.Navigator>
