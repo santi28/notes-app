@@ -48,7 +48,7 @@ const parseDate = (timestamp: number): string => {
   // Obitene el mes actual
   const month: string = months[date.month()]
 
-  return date.format(`DD [de] ${month}`)
+  return date.format(`DD [de] ${month} HH:mm`)
 }
 
 export { getParsedDate, parseDate }

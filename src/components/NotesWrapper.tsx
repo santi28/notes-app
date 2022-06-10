@@ -31,8 +31,6 @@ const NotesWrapper = ({ notes }: { notes: INote[] }) => {
   }>({ left: [], right: [] })
 
   React.useEffect(() => {
-    console.log(`NotesWrapper: ${notes.length}`)
-
     const leftSide = notes.filter(
       (note: INote, index: number) => index % 2 === 0
     )
@@ -41,11 +39,8 @@ const NotesWrapper = ({ notes }: { notes: INote[] }) => {
       (note: INote, index: number) => index % 2 === 1
     )
 
-    console.log(leftSide)
-    console.log(rightSide)
-
     setSplittedWrapper({ left: leftSide, right: rightSide })
-  }, [])
+  }, [notes])
 
   return (
     <View style={[style.masterWrapper]}>

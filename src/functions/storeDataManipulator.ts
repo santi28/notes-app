@@ -47,8 +47,19 @@ const getAllNotes = async (): Promise<INote[]> => {
       const jsonNote = await AsyncStorage.getItem(key)
       if (jsonNote === undefined || !jsonNote) continue
       const note: INote = await JSON.parse(jsonNote)
+
+      // Get limit beetween 120 and 150
+      const randomLimit = Math.floor(Math.random() * (200 - 100 + 1)) + 120
+
+      // En caso de que el contenido de la nota supere el limite de caracteres lo corta
+      if (note.content.length > randomLimit)
+        note.content = note.content.slice(0, randomLimit) + '...'
+
       notes.push(note)
     }
+
+    // Ordena las notas por fecha de actualización
+    notes.sort((a, b) => b.updatedAt - a.updatedAt)
 
     return Promise.resolve(notes)
   } catch (error) {

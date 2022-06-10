@@ -24,6 +24,20 @@ const Home = () => {
     return setLoading(true)
   }, [])
 
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      getAllNotes()
+        .then((notes: INote[]) => {
+          setNotes(notes)
+          return notes
+        })
+        .then((notes) => (notes.length > 0 ? setLoading(false) : null))
+        .catch((e) => console.error(e))
+    })
+
+    return setLoading(true)
+  }, [navigation])
+
   return (
     <View
       style={{
