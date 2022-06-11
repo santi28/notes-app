@@ -15,7 +15,7 @@ const Header = () => {
   )
 }
 
-const NoteHeader = ({ saveNoteEvent }) => {
+const NoteHeader = ({ saveNoteEvent }: { saveNoteEvent: () => void }) => {
   // Check if navigation object is undefined
 
   const navigation = useNavigation()

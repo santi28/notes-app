@@ -36,7 +36,7 @@ const Note = () => {
       await createNewNote({
         title: noteTitle,
         createdAt: noteDate.timestamp,
-        content: noteContent
+        content: noteContent.trim()
       })
 
       navigation.goBack()

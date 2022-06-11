@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 
 import { INote } from '../functions/storeDataManipulator'
 import NotePreview from './NotePreview'
@@ -7,9 +7,14 @@ import NotePreview from './NotePreview'
 interface INotesSubWrapperProps {
   notes: INote[]
   margin: 'left' | 'booth' | 'right'
+  onDelete: (noteid: string) => void
 }
 
-const NotesSubWrapper = ({ notes, margin }: INotesSubWrapperProps) => {
+const NotesSubWrapper = ({
+  notes,
+  margin,
+  onDelete
+}: INotesSubWrapperProps) => {
   const marginRender = {
     marginRight: margin === 'right' || margin === 'booth' ? 5 : 0,
     marginLeft: margin === 'left' || margin === 'booth' ? 5 : 0
@@ -18,13 +23,19 @@ const NotesSubWrapper = ({ notes, margin }: INotesSubWrapperProps) => {
   return (
     <View style={[style.subWrappers, marginRender]}>
       {notes.map((note) => (
-        <NotePreview key={note.id} {...note} />
+        <NotePreview key={note.id} {...note} onDelete={(id) => onDelete(id)} />
       ))}
     </View>
   )
 }
 
-const NotesWrapper = ({ notes }: { notes: INote[] }) => {
+const NotesWrapper = ({
+  notes,
+  onDelete
+}: {
+  notes: INote[]
+  onDelete: (noteid: string) => void
+}) => {
   const [splittedWrapper, setSplittedWrapper] = React.useState<{
     left: INote[]
     right: INote[]
@@ -43,10 +54,20 @@ const NotesWrapper = ({ notes }: { notes: INote[] }) => {
   }, [notes])
 
   return (
-    <View style={[style.masterWrapper]}>
-      <NotesSubWrapper notes={splittedWrapper.left} margin="right" />
-      <NotesSubWrapper notes={splittedWrapper.right} margin="left" />
-    </View>
+    <ScrollView>
+      <View style={[style.masterWrapper]}>
+        <NotesSubWrapper
+          notes={splittedWrapper.left}
+          margin="right"
+          onDelete={(id) => onDelete(id)}
+        />
+        <NotesSubWrapper
+          notes={splittedWrapper.right}
+          margin="left"
+          onDelete={(id) => onDelete(id)}
+        />
+      </View>
+    </ScrollView>
   )
 }
 

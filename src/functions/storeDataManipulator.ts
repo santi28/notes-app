@@ -67,4 +67,13 @@ const getAllNotes = async (): Promise<INote[]> => {
   }
 }
 
-export { createNewNote, getAllNotes, INote }
+const deleteNoteById = async (noteId: string) => {
+  try {
+    await AsyncStorage.removeItem(noteId)
+    return Promise.resolve()
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+export { createNewNote, getAllNotes, deleteNoteById, INote }
