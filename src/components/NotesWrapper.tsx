@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 
 import { INote } from '../functions/storeDataManipulator'
+import { theme } from '../theme'
 import NotePreview from './NotePreview'
 
 interface INotesSubWrapperProps {
@@ -55,18 +56,31 @@ const NotesWrapper = ({
 
   return (
     <ScrollView>
-      <View style={[style.masterWrapper]}>
-        <NotesSubWrapper
-          notes={splittedWrapper.left}
-          margin="right"
-          onDelete={(id) => onDelete(id)}
-        />
-        <NotesSubWrapper
-          notes={splittedWrapper.right}
-          margin="left"
-          onDelete={(id) => onDelete(id)}
-        />
-      </View>
+      {notes.length <= 0 ? (
+        <Text
+          style={{
+            flex: 1,
+            textAlign: 'center',
+            fontFamily: theme.fonts.typos.regular,
+            fontSize: theme.fonts.sizes.large,
+            color: theme.colors.white
+          }}>
+          No se encontraron notas!
+        </Text>
+      ) : (
+        <View style={[style.masterWrapper]}>
+          <NotesSubWrapper
+            notes={splittedWrapper.left}
+            margin="right"
+            onDelete={(id) => onDelete(id)}
+          />
+          <NotesSubWrapper
+            notes={splittedWrapper.right}
+            margin="left"
+            onDelete={(id) => onDelete(id)}
+          />
+        </View>
+      )}
     </ScrollView>
   )
 }

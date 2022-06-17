@@ -92,8 +92,9 @@ const style = StyleSheet.create({
 
 const Home = () => {
   const navigation = useNavigation()
-  const [notes, setNotes] = React.useState<INote[]>([])
   const [loading, setLoading] = React.useState<boolean>(true)
+  const [notes, setNotes] = React.useState<INote[]>([])
+  const [filteredNotes, setFilteredNotes] = React.useState<INote[]>([])
 
   const [deleteDialogVisible, setDeleteDialogVisible] =
     React.useState<boolean>(false)
@@ -111,6 +112,7 @@ const Home = () => {
         .then(() => {
           const newNotes = notes.filter((note) => note.id !== deleteNoteId)
           setNotes(newNotes)
+          setFilteredNotes(newNotes)
         })
         .catch((error) => {
           console.log(error)
@@ -121,10 +123,19 @@ const Home = () => {
     return setDeleteDialogVisible(false)
   }
 
+  const handleSearch = (search: string) => {
+    const filteredNotes = notes.filter((note) => {
+      if (search === '') return note
+      else return note.title.toLowerCase().includes(search.toLowerCase())
+    })
+    setFilteredNotes(filteredNotes)
+  }
+
   useEffect(() => {
     getAllNotes()
       .then((notes: INote[]) => {
         setNotes(notes)
+        setFilteredNotes(notes)
         return notes
       })
       .then((notes) => (notes.length > 0 ? setLoading(false) : null))
@@ -138,6 +149,7 @@ const Home = () => {
       getAllNotes()
         .then((notes: INote[]) => {
           setNotes(notes)
+          setFilteredNotes(notes)
           return notes
         })
         .then((notes) => (notes.length > 0 ? setLoading(false) : null))
@@ -154,11 +166,14 @@ const Home = () => {
         alignContent: 'center',
         backgroundColor: theme.colors.primary
       }}>
-      <Header />
+      <Header
+        searchValue={'searchQuery'}
+        onSearch={(query) => handleSearch(query)}
+      />
       {loading ? (
         <Text>Cargando notas...</Text>
       ) : (
-        <NotesWrapper notes={notes} onDelete={(id) => deleteNote(id)} />
+        <NotesWrapper notes={filteredNotes} onDelete={(id) => deleteNote(id)} />
       )}
       <AddNewNoteButton navigation={navigation} />
       {deleteDialogVisible && (

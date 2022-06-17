@@ -1,16 +1,58 @@
 import React from 'react'
 
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Search, ArrowLeft } from 'react-native-unicons'
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput
+} from 'react-native'
+import { Search, ArrowLeft, Times } from 'react-native-unicons'
 
 import { theme } from '../theme'
 import { useNavigation } from '@react-navigation/native'
 
-const Header = () => {
+const Header = ({
+  searchValue,
+  onSearch
+}: {
+  searchValue: string
+  onSearch: (searchedText: string) => void
+}) => {
+  const [isSearching, setIsSearching] = React.useState(false)
+
   return (
     <View style={[styles.header]}>
-      <Text style={[styles.headerTitle]}>Native Notes</Text>
-      <Search width={20} height={20} color="white" />
+      <View
+        style={[
+          styles.headerSearchWrapper,
+          { display: isSearching ? 'flex' : 'none' }
+        ]}>
+        <TextInput
+          placeholder="Buscar por titulo"
+          // value={searchValue}
+          placeholderTextColor={theme.colors.white}
+          style={[styles.headerSearchInput]}
+          onChange={(e) => onSearch(e.nativeEvent.text)}
+        />
+        <TouchableOpacity
+          style={[styles.headerButtonWrapper]}
+          onPress={() => setIsSearching(false)}>
+          <Times width={24} height={24} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View
+        style={[
+          styles.headerWrapper,
+          { display: !isSearching ? 'flex' : 'none' }
+        ]}>
+        <Text style={[styles.headerTitle]}>Native Notes</Text>
+        <TouchableOpacity
+          style={[styles.headerButtonWrapper]}
+          onPress={() => setIsSearching(true)}>
+          <Search width={20} height={20} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -52,11 +94,40 @@ const NoteHeader = ({ saveNoteEvent }: { saveNoteEvent: () => void }) => {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: theme.colors.primary,
+    minHeight: 60,
     paddingHorizontal: 25,
     paddingVertical: 25,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  headerButtonWrapper: {
+    padding: 15,
+    borderRadius: 15,
+    backgroundColor: theme.colors.secondary,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  headerSearchWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  headerSearchInput: {
+    flex: 1,
+    fontFamily: theme.fonts.typos.regular,
+    fontSize: theme.fonts.sizes.medium,
+    color: theme.colors.white,
+    backgroundColor: theme.colors.secondary,
+    borderRadius: 15,
+    paddingHorizontal: 20,
+    paddingVertical: 13
   },
   headerTitle: {
     fontFamily: theme.fonts.typos.bold,
