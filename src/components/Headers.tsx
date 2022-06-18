@@ -12,13 +12,7 @@ import { Search, ArrowLeft, Times } from 'react-native-unicons'
 import { theme } from '../theme'
 import { useNavigation } from '@react-navigation/native'
 
-const Header = ({
-  searchValue,
-  onSearch
-}: {
-  searchValue: string
-  onSearch: (searchedText: string) => void
-}) => {
+const Header = ({ onSearch }: { onSearch: (searchedText: string) => void }) => {
   const [isSearching, setIsSearching] = React.useState(false)
 
   return (
@@ -29,10 +23,9 @@ const Header = ({
           { display: isSearching ? 'flex' : 'none' }
         ]}>
         <TextInput
-          placeholder="Buscar por titulo"
-          // value={searchValue}
-          placeholderTextColor={theme.colors.white}
           style={[styles.headerSearchInput]}
+          placeholder="Buscar por titulo"
+          placeholderTextColor={theme.colors.white}
           onChange={(e) => onSearch(e.nativeEvent.text)}
         />
         <TouchableOpacity
@@ -98,6 +91,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 25,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   headerButtonWrapper: {
